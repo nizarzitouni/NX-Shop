@@ -14,8 +14,8 @@ class AppRoutes {
   static const REGISTERSCREEN = "/register";
   static const FORGOTPASSWORDSCREEN = "/forgot_password";
   //
+  static const MAINSCREEN = "/main";
   static const CATEGORYSCREEN = "/category_screen";
   static const HOMESCREEN = "/home";
-  static const MAINSCREEN = "/main";
   static const SETTINGSSCREEN = "/settings";
 }

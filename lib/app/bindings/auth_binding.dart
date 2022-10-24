@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:nx_shop/controllers/auth/login_controller.dart';
 
-import '../../controllers/auth/forgot_password_controller.dart';
 import '../../controllers/auth/register_controller.dart';
 
 class AuthBinding implements Bindings {
@@ -9,6 +8,5 @@ class AuthBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<LoginController>(() => LoginController());
     Get.lazyPut<RegisterController>(() => RegisterController());
-    Get.lazyPut<ForgotPasswordController>(() => ForgotPasswordController());
   }
 }

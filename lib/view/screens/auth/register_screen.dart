@@ -6,7 +6,6 @@ import 'package:nx_shop/core/my_strings.dart';
 import 'package:nx_shop/core/routes/app_routes.dart';
 import 'package:nx_shop/core/size_config.dart';
 import 'package:nx_shop/view/global_widgets/my_text.dart';
-
 import 'widgets/auth_button.dart';
 import 'widgets/auth_text_from_field_widget.dart';
 import 'widgets/bottom_container.dart';
@@ -162,10 +161,49 @@ class RegisterScreen extends StatelessWidget {
                         //
                         //
                         const SizedBox(height: 40.0),
-                        AuthButton(
-                          text: 'Sign Up',
-                          onPressed: () {
-                            //Sign Up
+                        GetBuilder<RegisterController>(
+                          builder: (_) {
+                            return AuthButton(
+                              text: 'Sign Up',
+                              onPressed: () {
+                                if (registerController.isCheckBox == false) {
+                                  Get.snackbar(
+                                    'Check Box',
+                                    'Please, Accept terms & conditions',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: MyColors.myRed,
+                                    colorText: MyColors.myWhite,
+                                    borderRadius: 15,
+                                    margin: const EdgeInsets.only(
+                                        bottom: 100, left: 20, right: 20),
+                                    forwardAnimationCurve: Curves.elasticInOut,
+                                    reverseAnimationCurve: Curves.easeOut,
+                                    duration: const Duration(seconds: 2),
+                                  );
+                                } else {
+                                  //Sign Up
+                                  if (formKey.currentState!.validate()) {
+                                    String name = registerController
+                                        .nameController.text
+                                        .trim();
+                                    String email = registerController
+                                        .emailController.text
+                                        .trim();
+                                    String password = registerController
+                                        .passwordController.text
+                                        .trim();
+
+                                    registerController.signUpUsingFirebase(
+                                      name: name,
+                                      email: email,
+                                      password: password,
+                                    );
+
+                                    registerController.isCheckBox = true;
+                                  }
+                                }
+                              },
+                            );
                           },
                         ),
                       ],

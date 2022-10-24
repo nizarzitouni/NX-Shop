@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nx_shop/controllers/auth/forgot_password_controller.dart';
 import 'package:nx_shop/view/screens/auth/widgets/auth_button.dart';
 import 'package:nx_shop/view/screens/auth/widgets/auth_text_from_field_widget.dart';
 
+import '../../../controllers/auth/login_controller.dart';
 import '../../../core/my_colors.dart';
 import '../../../core/my_strings.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   ForgotPasswordScreen({Key? key}) : super(key: key);
   final formKey = GlobalKey<FormState>();
-  final ForgotPasswordController forgotPasswordController = Get.find();
+
+  final LoginController loginController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   //
                   const SizedBox(height: 50.0),
                   AuthTextFromField(
-                    controller: forgotPasswordController.emailController,
+                    controller: loginController.emailController,
                     validation: (value) {
                       if (value.toString().length <= 4 ||
                           !RegExp(validationEmail).hasMatch(value)) {
@@ -99,11 +100,20 @@ class ForgotPasswordScreen extends StatelessWidget {
                     hintText: 'Email Adresse',
                   ),
                   const SizedBox(height: 30.0),
-                  AuthButton(
-                      text: 'SEND',
-                      onPressed: () {
-                        //
-                      }),
+                  GetBuilder<LoginController>(
+                    builder: (_) {
+                      return AuthButton(
+                          text: 'SEND',
+                          onPressed: () {
+                            //
+                            if (formKey.currentState!.validate()) {
+                              String email =
+                                  loginController.emailController.text.trim();
+                              loginController.resetPassword(email);
+                            }
+                          });
+                    },
+                  ),
                   const SizedBox(height: 30.0),
                 ],
               ),
