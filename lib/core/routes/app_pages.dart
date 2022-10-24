@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:nx_shop/app/bindings/auth_binding.dart';
+import 'package:nx_shop/view/screens/auth/forgot_password.dart';
 import 'package:nx_shop/view/screens/auth/login_screen.dart';
 import 'package:nx_shop/view/screens/auth/register_screen.dart';
 import 'package:nx_shop/view/screens/welcome_screen.dart';
@@ -41,6 +42,12 @@ class AppPages {
     GetPage(
       name: AppRoutes.REGISTERSCREEN,
       page: () => RegisterScreen(),
+      binding: AuthBinding(),
+      transition: _defaultTransition,
+    ),
+    GetPage(
+      name: AppRoutes.FORGOTPASSWORDSCREEN,
+      page: () => ForgotPasswordScreen(),
       binding: AuthBinding(),
       transition: _defaultTransition,
     ),

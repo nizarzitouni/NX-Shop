@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:nx_shop/core/my_colors.dart';
 import 'package:nx_shop/view/global_widgets/my_text.dart';
 
-import '../../../../controllers/register_controller.dart';
+import '../../../../controllers/auth/register_controller.dart';
 
 class CheckWidget extends StatelessWidget {
   CheckWidget({Key? key}) : super(key: key);

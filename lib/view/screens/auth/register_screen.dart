@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nx_shop/controllers/register_controller.dart';
+import 'package:nx_shop/controllers/auth/register_controller.dart';
 import 'package:nx_shop/core/my_colors.dart';
 import 'package:nx_shop/core/my_strings.dart';
 import 'package:nx_shop/core/routes/app_routes.dart';
@@ -73,7 +73,7 @@ class RegisterScreen extends StatelessWidget {
                           validation: (value) {
                             if (value.toString().length <= 4 ||
                                 !RegExp(validationName).hasMatch(value)) {
-                              return 'Enter valid neme';
+                              return 'Enter valid name';
                             } else {
                               return null;
                             }

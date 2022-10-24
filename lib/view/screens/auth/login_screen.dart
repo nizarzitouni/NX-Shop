@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nx_shop/controllers/login_controller.dart';
+import 'package:nx_shop/controllers/auth/login_controller.dart';
 import 'package:nx_shop/view/screens/auth/widgets/auth_button.dart';
 
 import '../../../core/my_colors.dart';
@@ -69,7 +69,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         //
                         const SizedBox(height: 50.0),
-                        //usename
+                        //email
                         //
                         AuthTextFromField(
                           controller: loginController.emailController,
@@ -136,11 +136,13 @@ class LoginScreen extends StatelessWidget {
                         ),
                         //
                         //
-                        //const SizedBox(height: 12.0),
+                        //Forgot pass text
                         Align(
                           alignment: Alignment.centerRight,
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(AppRoutes.FORGOTPASSWORDSCREEN);
+                            },
                             child: MyText(
                               text: 'Forget Passowrd?',
                               fontSize: 16,
