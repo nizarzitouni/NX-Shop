@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:nx_shop/app/data/models/facebook_model.dart';
 import 'package:nx_shop/core/routes/app_routes.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../core/my_colors.dart';
 
 class LoginController extends GetxController {
@@ -14,7 +16,11 @@ class LoginController extends GetxController {
   //
   FirebaseAuth auth = FirebaseAuth.instance;
   String displayedUserName = '';
-
+  var displayedUserPhoto = '';
+  //
+  var googleAuth = GoogleSignIn();
+  var facebookAuth = FacebookAuth.instance;
+  FacebookModel facebookModel = FacebookModel();
   //Password visibility
   void changePasswordVisibilityLogin() {
     passwordIsVisible = !passwordIsVisible;
@@ -22,10 +28,8 @@ class LoginController extends GetxController {
   }
 
   //
-  void logInUsingFirebase({
-    required String email,
-    required String password,
-  }) async {
+  void logInUsingFirebase(
+      {required String email, required String password}) async {
     //
     try {
       await auth
@@ -75,16 +79,47 @@ class LoginController extends GetxController {
 
   //
   void googleSignUp() async {
-    //
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await googleAuth.signIn();
+      displayedUserName = googleUser!.displayName!;
+      displayedUserPhoto = googleUser.photoUrl!;
+      update();
+      Get.offNamed(AppRoutes.MAINSCREEN);
+    } catch (error) {
+      //
+      Get.snackbar(
+        'Error!',
+        error.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: MyColors.myRed,
+        colorText: MyColors.myWhite,
+        borderRadius: 15,
+        margin: const EdgeInsets.only(bottom: 100, left: 20, right: 20),
+        forwardAnimationCurve: Curves.elasticInOut,
+        reverseAnimationCurve: Curves.easeOut,
+        duration: const Duration(seconds: 2),
+      );
+    }
   }
+
   //
   void facebookSignUp() async {
-    //
+    // Trigger the sign-in flow
+    final LoginResult facebookLoginResult = await facebookAuth.login();
+
+    if (facebookLoginResult.status == LoginStatus.success) {
+      facebookModel = FacebookModel.fromJson(await facebookAuth.getUserData());
+      displayedUserName = facebookModel.name!;
+      displayedUserPhoto = facebookModel.picture!.data!.url!;
+      update();
+      Get.offNamed(AppRoutes.MAINSCREEN);
+    }
   }
+
   //
   void resetPassword(String email) async {
     //
-
     try {
       await auth.sendPasswordResetEmail(email: email);
       update();

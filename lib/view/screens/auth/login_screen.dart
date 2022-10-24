@@ -190,14 +190,27 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            InkWell(
-                                onTap: () {},
-                                child: Image.asset('assets/icons/google.png')),
+                            GetBuilder<LoginController>(
+                              builder: (_) {
+                                return InkWell(
+                                    onTap: () {
+                                      loginController.googleSignUp();
+                                    },
+                                    child:
+                                        Image.asset('assets/icons/google.png'));
+                              },
+                            ),
                             const SizedBox(width: 10.0),
-                            InkWell(
-                                onTap: () {},
-                                child:
-                                    Image.asset('assets/icons/facebook.png')),
+                            GetBuilder<LoginController>(
+                              builder: (_) {
+                                return InkWell(
+                                    onTap: () {
+                                      loginController.facebookSignUp();
+                                    },
+                                    child: Image.asset(
+                                        'assets/icons/facebook.png'));
+                              },
+                            ),
                           ],
                         ),
                       ],
