@@ -34,7 +34,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.LOGINSCREEN,
-      page: () => const LoginScreen(),
+      page: () => LoginScreen(),
       binding: AuthBinding(),
       transition: _defaultTransition,
     ),
