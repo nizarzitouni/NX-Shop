@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-import 'package:nx_shop/app/bindings/login_binding.dart';
-import 'package:nx_shop/app/bindings/register_binding.dart';
+import 'package:nx_shop/app/bindings/auth_binding.dart';
 import 'package:nx_shop/view/screens/auth/login_screen.dart';
 import 'package:nx_shop/view/screens/auth/register_screen.dart';
 import 'package:nx_shop/view/screens/welcome_screen.dart';
@@ -36,13 +35,13 @@ class AppPages {
     GetPage(
       name: AppRoutes.LOGINSCREEN,
       page: () => const LoginScreen(),
-      binding: LoginBinding(),
+      binding: AuthBinding(),
       transition: _defaultTransition,
     ),
     GetPage(
       name: AppRoutes.REGISTERSCREEN,
       page: () => RegisterScreen(),
-      binding: RegisterBinding(),
+      binding: AuthBinding(),
       transition: _defaultTransition,
     ),
   ];

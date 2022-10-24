@@ -9,21 +9,21 @@ class MyText extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   final Color myColor;
-  final TextDecoration textDecoration;
+  final TextDecoration textUnderline;
   const MyText({
     Key? key,
     required this.text,
     required this.fontSize,
     required this.fontWeight,
     required this.myColor,
-    this.textDecoration = TextDecoration.none,
+    this.textUnderline = TextDecoration.none,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       style: TextStyle(
-        decoration: textDecoration,
+        decoration: textUnderline,
         fontSize: fontSize,
         fontWeight: fontWeight,
         color: myColor,

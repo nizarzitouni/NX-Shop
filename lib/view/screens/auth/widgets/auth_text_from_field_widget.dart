@@ -23,10 +23,11 @@ class AuthTextFromField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       cursorColor: MyColors.myBblack,
+      style: TextStyle(color: MyColors.myBblack),
       keyboardType: TextInputType.text,
       validator: (value) => validation(value),
       decoration: InputDecoration(
-        fillColor: MyColors.myBblack.withOpacity(.1),
+        fillColor: MyColors.myGrey,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,

@@ -123,7 +123,7 @@ class WelcomeScreen extends StatelessWidget {
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
                         myColor: MyColors.myWhite,
-                        textDecoration: TextDecoration.underline,
+                        textUnderline: TextDecoration.underline,
                       ),
                     )
                   ],
