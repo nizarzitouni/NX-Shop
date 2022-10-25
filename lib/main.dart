@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'app/data/services/dependency_injection.dart';
@@ -6,13 +5,11 @@ import 'app/data/services/theme_service.dart';
 import 'app/data/services/translations_service.dart';
 import 'core/routes/app_pages.dart';
 import 'core/routes/app_routes.dart';
-import 'app/ui/layouts/main/main_layout.dart';
 import 'app/ui/theme/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DependecyInjection.init();
-  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -21,27 +18,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      builder: (_, __) {
-        return GetMaterialApp(
-          title: 'Nx_shop',
-          debugShowCheckedModeBanner: false,
-          theme: Themes().lightTheme,
-          darkTheme: Themes().darkTheme,
-          themeMode: ThemeService.instance.themeMode,
-          translations: Translation(),
-          locale: const Locale('en'),
-          fallbackLocale: const Locale('en'),
-          initialRoute: AppRoutes.WELCOMESCREEN,
-          // unknownRoute: AppPages.unknownRoutePage,
-          getPages: AppPages.pages,
-          builder: (_, child) {
-            return MainLayout(child: child!);
-          },
-        );
-      },
-      //! Must change it to true if you want to use the ScreenUtil
-      designSize: const Size(411, 823),
+    return GetMaterialApp(
+      title: 'Nx_shop',
+      debugShowCheckedModeBanner: false,
+      theme: Themes().lightTheme,
+      darkTheme: Themes().darkTheme,
+      themeMode: ThemeController().themeDataGet,
+      //ThemeService.instance.themeMode,
+      translations: Translation(),
+      locale: const Locale('en'),
+      fallbackLocale: const Locale('en'),
+      initialRoute: AppRoutes.WELCOMESCREEN,
+      getPages: AppPages.pages,
     );
   }
 }

@@ -1,39 +1,28 @@
 import 'package:get/get.dart';
-import 'package:nx_shop/app/bindings/auth_binding.dart';
+import 'package:nx_shop/core/bindings/auth_binding.dart';
+import 'package:nx_shop/core/bindings/main_binding.dart';
 import 'package:nx_shop/view/screens/auth/forgot_password_screen.dart';
 import 'package:nx_shop/view/screens/auth/login_screen.dart';
 import 'package:nx_shop/view/screens/auth/register_screen.dart';
+import 'package:nx_shop/view/screens/category_screen.dart';
+import 'package:nx_shop/view/screens/favorite_screen.dart';
 import 'package:nx_shop/view/screens/home_screen.dart';
+import 'package:nx_shop/view/screens/main_screen.dart';
+import 'package:nx_shop/view/screens/settings_screen.dart';
 import 'package:nx_shop/view/screens/welcome_screen.dart';
 
-import '../../app/bindings/home_binding.dart';
-import '../../app/ui/pages/home_page/home_page.dart';
-import '../../app/ui/pages/unknown_route_page/unknown_route_page.dart';
 import 'app_routes.dart';
 
 const _defaultTransition = Transition.native;
 
 class AppPages {
-  static final unknownRoutePage = GetPage(
-    name: AppRoutes.UNKNOWN,
-    page: () => const UnknownRoutePage(),
-    transition: _defaultTransition,
-  );
-
   static final List<GetPage> pages = [
-    unknownRoutePage,
-    GetPage(
-      name: AppRoutes.HOME,
-      page: () => const HomePage(),
-      binding: HomeBinding(),
-      transition: _defaultTransition,
-    ),
     GetPage(
       name: AppRoutes.WELCOMESCREEN,
       page: () => const WelcomeScreen(),
-      //binding: HomeBinding(),
       transition: _defaultTransition,
     ),
+    //Auth Binding
     GetPage(
       name: AppRoutes.LOGINSCREEN,
       page: () => LoginScreen(),
@@ -52,10 +41,35 @@ class AppPages {
       binding: AuthBinding(),
       transition: _defaultTransition,
     ),
+    //Main Binding
     GetPage(
       name: AppRoutes.MAINSCREEN,
       page: () => MainScreen(),
-      //binding: AuthBinding(),
+      binding: MainBinding(),
+      transition: _defaultTransition,
+    ),
+    GetPage(
+      name: AppRoutes.HOMESCREEN,
+      page: () => HomeScreen(),
+      binding: MainBinding(),
+      transition: _defaultTransition,
+    ),
+    GetPage(
+      name: AppRoutes.CATEGORYSCREEN,
+      page: () => CategoryScreen(),
+      binding: MainBinding(),
+      transition: _defaultTransition,
+    ),
+    GetPage(
+      name: AppRoutes.FAVORITESCREEN,
+      page: () => FavoritesScreen(),
+      binding: MainBinding(),
+      transition: _defaultTransition,
+    ),
+    GetPage(
+      name: AppRoutes.SETTINGSSCREEN,
+      page: () => SettingsScreen(),
+      binding: MainBinding(),
       transition: _defaultTransition,
     ),
   ];
