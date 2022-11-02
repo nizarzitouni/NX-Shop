@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-import '../../../core/translation/en.dart';
-import '../../../core/translation/ar.dart';
+import '../../core/translation/en.dart';
+import '../../core/translation/ar.dart';
 
 class Translation extends Translations {
   @override

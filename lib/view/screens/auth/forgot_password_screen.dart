@@ -38,8 +38,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
           ),
         ),
-        backgroundColor:
-            Get.isDarkMode ? MyColors.myWhite : MyColors.darkModeBlack,
+        backgroundColor: context.theme.backgroundColor,
         body: Form(
           key: formKey,
           child: SingleChildScrollView(

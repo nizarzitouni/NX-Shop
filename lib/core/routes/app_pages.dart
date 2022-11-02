@@ -6,7 +6,7 @@ import 'package:nx_shop/view/screens/auth/login_screen.dart';
 import 'package:nx_shop/view/screens/auth/register_screen.dart';
 import 'package:nx_shop/view/screens/category_screen.dart';
 import 'package:nx_shop/view/screens/favorite_screen.dart';
-import 'package:nx_shop/view/screens/home_screen.dart';
+import 'package:nx_shop/view/screens/home_screen/home_screen.dart';
 import 'package:nx_shop/view/screens/main_screen.dart';
 import 'package:nx_shop/view/screens/settings_screen.dart';
 import 'package:nx_shop/view/screens/welcome_screen.dart';
@@ -16,6 +16,7 @@ import 'app_routes.dart';
 const _defaultTransition = Transition.native;
 
 class AppPages {
+  static const mainScreen = AppRoutes.MAINSCREEN;
   static final List<GetPage> pages = [
     GetPage(
       name: AppRoutes.WELCOMESCREEN,
@@ -38,11 +39,16 @@ class AppPages {
     GetPage(
       name: AppRoutes.FORGOTPASSWORDSCREEN,
       page: () => ForgotPasswordScreen(),
-      binding: AuthBinding(),
       transition: _defaultTransition,
     ),
+
+    //
+    //
+    //
+    //
     //Main Binding
     GetPage(
+      //nav bar with appbar
       name: AppRoutes.MAINSCREEN,
       page: () => MainScreen(),
       binding: MainBinding(),

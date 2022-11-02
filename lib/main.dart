@@ -1,11 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'app/data/services/dependency_injection.dart';
-import 'app/data/services/theme_service.dart';
-import 'app/data/services/translations_service.dart';
+import 'package:get_storage/get_storage.dart';
+import 'data/services/dependency_injection.dart';
+import 'data/services/theme_service.dart';
+import 'data/services/translations_service.dart';
 import 'core/routes/app_pages.dart';
 import 'core/routes/app_routes.dart';
-import 'app/ui/theme/themes.dart';
+import 'core/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +30,10 @@ class MyApp extends StatelessWidget {
       translations: Translation(),
       locale: const Locale('en'),
       fallbackLocale: const Locale('en'),
-      initialRoute: AppRoutes.WELCOMESCREEN,
+      initialRoute: FirebaseAuth.instance.currentUser != null ||
+              GetStorage().read<bool>("auth") == true
+          ? AppRoutes.MAINSCREEN
+          : AppRoutes.WELCOMESCREEN,
       getPages: AppPages.pages,
     );
   }

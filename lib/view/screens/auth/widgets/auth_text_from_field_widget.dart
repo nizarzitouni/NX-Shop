@@ -27,7 +27,7 @@ class AuthTextFromField extends StatelessWidget {
       keyboardType: TextInputType.text,
       validator: (value) => validation(value),
       decoration: InputDecoration(
-        fillColor: MyColors.myGrey,
+        fillColor: MyColors.myGreyTwo,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,

@@ -28,8 +28,7 @@ class LoginScreen extends StatelessWidget {
               Get.isDarkMode ? MyColors.darkModeBlack : MyColors.myWhite,
           elevation: 0,
         ),
-        backgroundColor:
-            Get.isDarkMode ? MyColors.darkModeBlack : MyColors.myWhite,
+        backgroundColor: context.theme.backgroundColor,
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

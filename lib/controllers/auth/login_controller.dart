@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
-import 'package:nx_shop/app/data/models/facebook_model.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:nx_shop/data/models/facebook_model.dart';
 import 'package:nx_shop/core/routes/app_routes.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../core/my_colors.dart';
@@ -21,6 +22,10 @@ class LoginController extends GetxController {
   var googleAuth = GoogleSignIn();
   var facebookAuth = FacebookAuth.instance;
   FacebookModel facebookModel = FacebookModel();
+  //
+  var isSignIn = false;
+  final GetStorage authBox = GetStorage();
+
   //Password visibility
   void changePasswordVisibilityLogin() {
     passwordIsVisible = !passwordIsVisible;
@@ -37,6 +42,8 @@ class LoginController extends GetxController {
           .then((value) {
         displayedUserName = auth.currentUser!.displayName!;
       });
+      isSignIn = true;
+      authBox.write("auth", isSignIn);
       update();
       Get.offNamed(AppRoutes.MAINSCREEN);
     } on FirebaseAuthException catch (error) {
@@ -84,6 +91,9 @@ class LoginController extends GetxController {
       final GoogleSignInAccount? googleUser = await googleAuth.signIn();
       displayedUserName = googleUser!.displayName!;
       displayedUserPhoto = googleUser.photoUrl!;
+      isSignIn = true;
+      authBox.write("auth", isSignIn);
+
       update();
       Get.offNamed(AppRoutes.MAINSCREEN);
     } catch (error) {
@@ -112,6 +122,9 @@ class LoginController extends GetxController {
       facebookModel = FacebookModel.fromJson(await facebookAuth.getUserData());
       displayedUserName = facebookModel.name!;
       displayedUserPhoto = facebookModel.picture!.data!.url!;
+      isSignIn = true;
+      authBox.write("auth", isSignIn);
+
       update();
       Get.offNamed(AppRoutes.MAINSCREEN);
     }
@@ -144,6 +157,36 @@ class LoginController extends GetxController {
         reverseAnimationCurve: Curves.easeOut,
         duration: const Duration(seconds: 2),
       );
+    } catch (error) {
+      Get.snackbar(
+        'Error!',
+        error.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: MyColors.myRed,
+        colorText: MyColors.myWhite,
+        borderRadius: 15,
+        margin: const EdgeInsets.only(bottom: 100, left: 20, right: 20),
+        forwardAnimationCurve: Curves.elasticInOut,
+        reverseAnimationCurve: Curves.easeOut,
+        duration: const Duration(seconds: 2),
+      );
+    }
+  }
+
+  //
+  void logOutFromApp() async {
+    try {
+      await auth.signOut();
+      await googleAuth.signOut();
+      await facebookAuth.logOut();
+      displayedUserName = '';
+      displayedUserPhoto = '';
+      isSignIn = false;
+      authBox.write("auth", isSignIn);
+
+      update();
+
+      Get.offNamed(AppRoutes.WELCOMESCREEN);
     } catch (error) {
       Get.snackbar(
         'Error!',

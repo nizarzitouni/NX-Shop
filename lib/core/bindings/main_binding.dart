@@ -1,17 +1,15 @@
 import 'package:get/get.dart';
 import 'package:nx_shop/controllers/main/category_controller.dart';
-import 'package:nx_shop/controllers/main/favorite_controller.dart';
-import 'package:nx_shop/controllers/main/settings_controller.dart';
 import 'package:nx_shop/controllers/main_controller.dart';
-import '../../app/controllers/home_controller.dart';
+//
+import '../../controllers/main/products_controller.dart';
 
 class MainBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<MainController>(() => MainController());
-    Get.lazyPut<HomeController>(() => HomeController());
-    Get.lazyPut<CategoryController>(() => CategoryController());
-    Get.lazyPut<FavoriteController>(() => FavoriteController());
-    Get.lazyPut<SettingsController>(() => SettingsController());
+    Get.put<MainController>(MainController(), permanent: true);
+    Get.put<ProductsController>(ProductsController(), permanent: true);
+    Get.lazyPut<CategoryController>(() => CategoryController(), fenix: true);
+    // Get.lazyPut<LoginController>(() => LoginController());
   }
 }
