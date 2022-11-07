@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nx_shop/controllers/main/cart_controller.dart';
 import 'package:nx_shop/controllers/main/products_controller.dart';
 import 'package:nx_shop/core/my_colors.dart';
 import 'package:nx_shop/view/global_widgets/my_text.dart';
+
+import '../../../../data/models/product_model.dart';
 
 class CardItems extends StatelessWidget {
   CardItems({Key? key}) : super(key: key);
 
   final productsController = Get.find<ProductsController>();
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +37,13 @@ class CardItems extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return buildCardItems(
-                  image: productsController.productsList[index].image,
-                  price: productsController.productsList[index].price,
-                  rate: productsController.productsList[index].rating.rate,
-                  productId: productsController.productsList[index].id,
-                  onTap: () {});
+                image: productsController.productsList[index].image,
+                price: productsController.productsList[index].price,
+                rate: productsController.productsList[index].rating.rate,
+                productId: productsController.productsList[index].id,
+                onTap: () {},
+                productModel: productsController.productsList[index],
+              );
               // if (homeController.searchList.isEmpty) {
               //   return buildCardItems(
               //       image: controller.productList[index].image,
@@ -75,7 +81,7 @@ class CardItems extends StatelessWidget {
     required num price,
     required num rate,
     required int productId,
-    //required ProductModels productModels,
+    required ProductModel productModel,
     required Function() onTap,
   }) {
     return Padding(
@@ -99,40 +105,42 @@ class CardItems extends StatelessWidget {
               //==============================================================
               //Heart andCart Row
               //
-              Obx(() => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          productsController.manageFavourites(productId);
-                        },
-                        icon: productsController.isFavourites(productId)
-                            ? Icon(
-                                Icons.favorite,
-                                color: Get.isDarkMode
-                                    ? MyColors.myPink
-                                    : MyColors.myYellow,
-                              )
-                            : Icon(
-                                Icons.favorite_outline,
-                                color: Get.isDarkMode
-                                    ? MyColors.myPink
-                                    : MyColors.myYellow,
-                              ),
+              Obx(
+                () => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        productsController.manageFavourites(productId);
+                      },
+                      icon: productsController.isFavourites(productId)
+                          ? Icon(
+                              Icons.favorite,
+                              color: Get.isDarkMode
+                                  ? MyColors.myPink
+                                  : MyColors.myYellow,
+                            )
+                          : Icon(
+                              Icons.favorite_outline,
+                              color: Get.isDarkMode
+                                  ? MyColors.myPink
+                                  : MyColors.myYellow,
+                            ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        cartController.addProductToCart(productModel);
+                      },
+                      icon: Icon(
+                        Icons.shopping_cart,
+                        color: Get.isDarkMode
+                            ? MyColors.myPink
+                            : MyColors.myYellow,
                       ),
-                      IconButton(
-                        onPressed: () {
-                          // cartController.addProductToCart(productModels);
-                        },
-                        icon: Icon(
-                          Icons.shopping_cart,
-                          color: Get.isDarkMode
-                              ? MyColors.myPink
-                              : MyColors.myYellow,
-                        ),
-                      ),
-                    ],
-                  )),
+                    ),
+                  ],
+                ),
+              ),
               //==============================================================
               //Image Container
               //

@@ -4,6 +4,7 @@ import 'package:nx_shop/core/bindings/main_binding.dart';
 import 'package:nx_shop/view/screens/auth/forgot_password_screen.dart';
 import 'package:nx_shop/view/screens/auth/login_screen.dart';
 import 'package:nx_shop/view/screens/auth/register_screen.dart';
+import 'package:nx_shop/view/cart_screen/cart_screen.dart';
 import 'package:nx_shop/view/screens/category_screen.dart';
 import 'package:nx_shop/view/screens/favorite_screen.dart';
 import 'package:nx_shop/view/screens/home_screen/home_screen.dart';
@@ -75,6 +76,12 @@ class AppPages {
     GetPage(
       name: AppRoutes.SETTINGSSCREEN,
       page: () => SettingsScreen(),
+      binding: MainBinding(),
+      transition: _defaultTransition,
+    ),
+    GetPage(
+      name: AppRoutes.CARTSCREEN,
+      page: () => CartScreen(),
       binding: MainBinding(),
       transition: _defaultTransition,
     ),

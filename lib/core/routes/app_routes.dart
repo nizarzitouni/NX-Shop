@@ -19,4 +19,5 @@ class AppRoutes {
   static const CATEGORYSCREEN = "/category_screen";
   static const FAVORITESCREEN = "/favorite_screen";
   static const SETTINGSSCREEN = "/settings_screen";
+  static const CARTSCREEN = "/cart_screen";
 }

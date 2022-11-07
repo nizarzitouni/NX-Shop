@@ -1,11 +1,15 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nx_shop/controllers/main/cart_controller.dart';
 import 'package:nx_shop/controllers/main_controller.dart';
 import 'package:nx_shop/core/my_colors.dart';
+import 'package:nx_shop/core/routes/app_routes.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({Key? key}) : super(key: key);
   final mainController = Get.find<MainController>();
+  final cartontroller = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -17,12 +21,26 @@ class MainScreen extends StatelessWidget {
                 Get.isDarkMode ? MyColors.darkModeBlack : MyColors.myYellow,
             leading: Container(),
             actions: [
-              IconButton(
-                onPressed: () {
-                  //
-                },
-                icon: Image.asset('assets/icons/shop.png'),
+              Obx(
+                () => Badge(
+                  position: BadgePosition.topEnd(top: 0, end: 3),
+                  animationDuration: Duration(milliseconds: 300),
+                  animationType: BadgeAnimationType.slide,
+                  badgeContent: Text('${cartontroller.quantity().toString()}'),
+                  child: IconButton(
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.CARTSCREEN);
+                      },
+                      icon: Image.asset('assets/icons/shop.png')),
+                ),
               ),
+              // IconButton(
+              //   onPressed: () {
+              //     //
+              //     Get.toNamed(AppRoutes.CARTSCREEN);
+              //   },
+              //   icon: Image.asset('assets/icons/shop.png'),
+              // ),
             ],
             title:
                 Text(mainController.title[mainController.currentIndex.value]),

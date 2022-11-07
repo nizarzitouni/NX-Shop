@@ -28,6 +28,7 @@ dependencies:
   google_fonts: ^3.0.1
   http: ^0.13.5
   flutter_facebook_auth: ^4.4.1+1
+  badges: ^2.0.3
 
 
 dev_dependencies:

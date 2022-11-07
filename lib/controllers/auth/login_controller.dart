@@ -25,6 +25,8 @@ class LoginController extends GetxController {
   //
   var isSignIn = false;
   final GetStorage authBox = GetStorage();
+  //
+  var storage = GetStorage();
 
   //Password visibility
   void changePasswordVisibilityLogin() {
@@ -183,7 +185,7 @@ class LoginController extends GetxController {
       displayedUserPhoto = '';
       isSignIn = false;
       authBox.write("auth", isSignIn);
-
+      await storage.remove('isFavoritesList');
       update();
 
       Get.offNamed(AppRoutes.WELCOMESCREEN);

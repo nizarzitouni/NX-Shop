@@ -30,16 +30,15 @@ class ThemeController {
     boxStorage.write(key, isDark);
   }
 
-  bool getThemDataFromBox() {
-    return boxStorage.read<bool>(key) ?? false;
-  }
+  bool get getThemDataFromBox => boxStorage.read<bool>(key) ?? false;
 
   ThemeMode get themeDataGet =>
-      getThemDataFromBox() ? ThemeMode.dark : ThemeMode.light;
+      getThemDataFromBox ? ThemeMode.dark : ThemeMode.light;
 
   void changeTheme() {
-    Get.changeThemeMode(
-        getThemDataFromBox() ? ThemeMode.light : ThemeMode.dark);
-    saveDataInBo(!getThemDataFromBox());
+    Get.changeThemeMode(getThemDataFromBox ? ThemeMode.light : ThemeMode.dark);
+    saveDataInBo(!getThemDataFromBox);
   }
+
+  //Color get getColor => getThemDataFromBox ? Colors.white : Colors.black;
 }

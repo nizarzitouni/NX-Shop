@@ -5,9 +5,9 @@ import 'package:nx_shop/core/my_colors.dart';
 
 class FavoritesScreen extends StatelessWidget {
   FavoritesScreen({Key? key}) : super(key: key);
-  //final productsController = Get.find<ProductsController>();
-  final productsController =
-      Get.put<ProductsController>(ProductsController(), permanent: true);
+  final productsController = Get.find<ProductsController>();
+  // final productsController =
+  //     Get.put<ProductsController>(ProductsController(), permanent: true);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

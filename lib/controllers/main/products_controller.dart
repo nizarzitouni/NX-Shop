@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:nx_shop/data/models/product_modle.dart';
+import 'package:nx_shop/data/models/product_model.dart';
 import 'package:nx_shop/data/services/product_services.dart';
 
 class ProductsController extends GetxController {

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:nx_shop/data/models/product_modle.dart';
+import 'package:nx_shop/data/models/product_model.dart';
 import 'package:nx_shop/core/my_strings.dart';
 
 class ProductService {
