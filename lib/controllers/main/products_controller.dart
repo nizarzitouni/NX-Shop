@@ -25,8 +25,8 @@ class ProductsController extends GetxController {
     getProducts();
   }
 
+  //Getting the products from the api
   void getProducts() async {
-    //
     List<ProductModel> products = await ProductService.getProducts();
     try {
       isLoading(true); //When its done it become false
@@ -38,7 +38,7 @@ class ProductsController extends GetxController {
     }
   }
 
-  //Favorites logic
+  //Favorites logic----------------------------------------------------------
   void manageFavourites(productId) async {
     var removeAtIndex =
         favouritesList.indexWhere((product) => product.id == productId);
@@ -57,4 +57,5 @@ class ProductsController extends GetxController {
     //isFavourites.value == !isFavourites.value;
     return favouritesList.any((product) => product.id == productId);
   }
+  //--------------------------------------------------------------------------
 }

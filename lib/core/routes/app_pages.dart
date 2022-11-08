@@ -9,6 +9,7 @@ import 'package:nx_shop/view/screens/category_screen.dart';
 import 'package:nx_shop/view/screens/favorite_screen.dart';
 import 'package:nx_shop/view/screens/home_screen/home_screen.dart';
 import 'package:nx_shop/view/screens/main_screen.dart';
+import 'package:nx_shop/view/screens/product_details_screen/product_details_screen.dart';
 import 'package:nx_shop/view/screens/settings_screen.dart';
 import 'package:nx_shop/view/screens/welcome_screen.dart';
 
@@ -85,5 +86,11 @@ class AppPages {
       binding: MainBinding(),
       transition: _defaultTransition,
     ),
+    // GetPage(
+    //   name: AppRoutes.PRODUCTDETAILSSCREEN,
+    //   page: () => ProductDetailsScreen(productModel: null,),
+    //   binding: MainBinding(),
+    //   transition: _defaultTransition,
+    // ),
   ];
 }

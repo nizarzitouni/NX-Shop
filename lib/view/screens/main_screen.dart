@@ -34,13 +34,6 @@ class MainScreen extends StatelessWidget {
                       icon: Image.asset('assets/icons/shop.png')),
                 ),
               ),
-              // IconButton(
-              //   onPressed: () {
-              //     //
-              //     Get.toNamed(AppRoutes.CARTSCREEN);
-              //   },
-              //   icon: Image.asset('assets/icons/shop.png'),
-              // ),
             ],
             title:
                 Text(mainController.title[mainController.currentIndex.value]),
