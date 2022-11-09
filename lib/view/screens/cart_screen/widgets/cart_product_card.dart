@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:nx_shop/core/my_colors.dart';
 import 'package:nx_shop/data/models/product_model.dart';
 
-import '../../../controllers/main/cart_controller.dart';
+import '../../../../controllers/main/cart_controller.dart';
 
 class CartProductCard extends StatelessWidget {
   final ProductModel productModels;

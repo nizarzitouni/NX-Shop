@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nx_shop/data/models/product_model.dart';
@@ -12,6 +13,10 @@ class ProductsController extends GetxController {
   //loacal caching
   var storage = GetStorage();
 
+  //~~~~~~~~~~~~~~Search~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  var searchList = <ProductModel>[].obs;
+  TextEditingController searchTextController = TextEditingController();
+
   @override
   void onInit() {
     super.onInit();
@@ -25,7 +30,7 @@ class ProductsController extends GetxController {
     getProducts();
   }
 
-  //Getting the products from the api
+  //Getting the products from the api----------------------------------------
   void getProducts() async {
     List<ProductModel> products = await ProductService.getProducts();
     try {
@@ -58,4 +63,20 @@ class ProductsController extends GetxController {
     return favouritesList.any((product) => product.id == productId);
   }
   //--------------------------------------------------------------------------
+
+  //~~~~~~~~~~~~~~SearchBar Logic~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  void addSearchToList(String searchName) {
+    searchList.value = productsList.where((search) {
+      return search.title
+              .toLowerCase()
+              .contains(searchName.toLowerCase()) || //filter by name
+          search.price.toString().contains(searchName); //filter by preice
+    }).toList();
+    update();
+  }
+
+  void clearSearch() {
+    searchTextController.clear();
+    addSearchToList("");
+  }
 }

@@ -8,13 +8,13 @@ import '../../../../data/models/product_model.dart';
 
 class AddCart extends StatelessWidget {
   final num price;
-  final ProductModel productModels;
+  final ProductModel productModel;
   AddCart({
     required this.price,
-    required this.productModels,
+    required this.productModel,
     Key? key,
   }) : super(key: key);
-  final controller = Get.find<CartController>();
+  final cartController = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,7 +57,7 @@ class AddCart extends StatelessWidget {
                       Get.isDarkMode ? MyColors.myPink : MyColors.myYellow,
                 ),
                 onPressed: () {
-                  controller.addProductToCart(productModels);
+                  cartController.addProductToCart(productModel);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

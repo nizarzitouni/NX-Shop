@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nx_shop/view/cart_screen/widgets/cart_total.dart';
+import 'package:nx_shop/view/screens/cart_screen/widgets/cart_total.dart';
 
-import '../../controllers/main/cart_controller.dart';
-import '../../core/my_colors.dart';
+import '../../../controllers/main/cart_controller.dart';
+import '../../../core/my_colors.dart';
 import 'widgets/cart_product_card.dart';
 import 'widgets/empty_cart.dart';
 

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:nx_shop/core/my_colors.dart';
 import 'package:nx_shop/view/global_widgets/my_text.dart';
 
-import '../../../controllers/main/cart_controller.dart';
+import '../../../../controllers/main/cart_controller.dart';
 
 class CartTotal extends StatelessWidget {
   CartTotal({Key? key}) : super(key: key);

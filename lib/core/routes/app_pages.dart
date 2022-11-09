@@ -4,8 +4,8 @@ import 'package:nx_shop/core/bindings/main_binding.dart';
 import 'package:nx_shop/view/screens/auth/forgot_password_screen.dart';
 import 'package:nx_shop/view/screens/auth/login_screen.dart';
 import 'package:nx_shop/view/screens/auth/register_screen.dart';
-import 'package:nx_shop/view/cart_screen/cart_screen.dart';
-import 'package:nx_shop/view/screens/category_screen.dart';
+import 'package:nx_shop/view/screens/cart_screen/cart_screen.dart';
+import 'package:nx_shop/view/screens/category_screen/category_screen.dart';
 import 'package:nx_shop/view/screens/favorite_screen.dart';
 import 'package:nx_shop/view/screens/home_screen/home_screen.dart';
 import 'package:nx_shop/view/screens/main_screen.dart';
@@ -86,11 +86,5 @@ class AppPages {
       binding: MainBinding(),
       transition: _defaultTransition,
     ),
-    // GetPage(
-    //   name: AppRoutes.PRODUCTDETAILSSCREEN,
-    //   page: () => ProductDetailsScreen(productModel: null,),
-    //   binding: MainBinding(),
-    //   transition: _defaultTransition,
-    // ),
   ];
 }
