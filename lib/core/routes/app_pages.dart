@@ -9,8 +9,9 @@ import 'package:nx_shop/view/screens/category_screen/category_screen.dart';
 import 'package:nx_shop/view/screens/favorite_screen.dart';
 import 'package:nx_shop/view/screens/home_screen/home_screen.dart';
 import 'package:nx_shop/view/screens/main_screen.dart';
+import 'package:nx_shop/view/screens/payment_screen/payment_screen.dart';
 import 'package:nx_shop/view/screens/product_details_screen/product_details_screen.dart';
-import 'package:nx_shop/view/screens/settings_screen.dart';
+import 'package:nx_shop/view/screens/settings_screen/settings_screen.dart';
 import 'package:nx_shop/view/screens/welcome_screen.dart';
 
 import 'app_routes.dart';
@@ -83,6 +84,12 @@ class AppPages {
     GetPage(
       name: AppRoutes.CARTSCREEN,
       page: () => CartScreen(),
+      binding: MainBinding(),
+      transition: _defaultTransition,
+    ),
+    GetPage(
+      name: AppRoutes.PAYMENTSCREEN,
+      page: () => PaymentScreen(),
       binding: MainBinding(),
       transition: _defaultTransition,
     ),

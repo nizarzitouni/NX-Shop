@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nx_shop/controllers/main/products_controller.dart';
+import 'package:nx_shop/controllers/main/product_controller.dart';
 import 'package:nx_shop/core/my_colors.dart';
 
 class FavoritesScreen extends StatelessWidget {
   FavoritesScreen({Key? key}) : super(key: key);
-  final productsController = Get.find<ProductsController>();
+  final productsController = Get.find<ProductController>();
   // final productsController =
   //     Get.put<ProductsController>(ProductsController(), permanent: true);
   @override

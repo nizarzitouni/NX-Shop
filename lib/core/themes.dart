@@ -39,6 +39,4 @@ class ThemeController {
     Get.changeThemeMode(getThemDataFromBox ? ThemeMode.light : ThemeMode.dark);
     saveDataInBo(!getThemDataFromBox);
   }
-
-  //Color get getColor => getThemDataFromBox ? Colors.white : Colors.black;
 }

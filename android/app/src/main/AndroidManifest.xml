@@ -2,6 +2,12 @@
     package="com.example.nx_shop">
 	
    <uses-permission android:name="android.permission.INTERNET"/>
+   <!-- ACCESS_COARSE_LOCATION or the ACCESS_FINE_LOCATION=>will be used by the geolocator plugin-->
+   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+   <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+
    <application
         android:label="nx_shop"
         android:name="${applicationName}"

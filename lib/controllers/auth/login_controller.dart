@@ -16,8 +16,9 @@ class LoginController extends GetxController {
   bool passwordIsVisible = false;
   //
   FirebaseAuth auth = FirebaseAuth.instance;
-  String displayedUserName = '';
-  var displayedUserPhoto = '';
+  var displayedUserName = ''.obs;
+  var displayedUserPhoto = ''.obs;
+  var displayUserEmail = ''.obs;
   //
   var googleAuth = GoogleSignIn();
   var facebookAuth = FacebookAuth.instance;
@@ -27,6 +28,20 @@ class LoginController extends GetxController {
   final GetStorage authBox = GetStorage();
   //
   var storage = GetStorage();
+  //~~~~~~~~~~~~~~Get the user credentialsfrom firestore~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  User? get userProfile => auth.currentUser;
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  @override
+  void onInit() {
+    //googleSignUp();
+    //Or
+    displayedUserName.value =
+        userProfile != null ? userProfile!.displayName! : '';
+    displayUserEmail.value = userProfile != null ? userProfile!.email! : '';
+    displayedUserPhoto.value =
+        userProfile != null ? userProfile!.photoURL! : '';
+    super.onInit();
+  }
 
   //Password visibility
   void changePasswordVisibilityLogin() {
@@ -42,7 +57,7 @@ class LoginController extends GetxController {
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
-        displayedUserName = auth.currentUser!.displayName!;
+        displayedUserName.value = auth.currentUser!.displayName!;
       });
       isSignIn = true;
       authBox.write("auth", isSignIn);
@@ -91,10 +106,21 @@ class LoginController extends GetxController {
     try {
       // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await googleAuth.signIn();
-      displayedUserName = googleUser!.displayName!;
-      displayedUserPhoto = googleUser.photoUrl!;
+      displayedUserName.value = googleUser!.displayName!;
+      displayedUserPhoto.value = googleUser.photoUrl!;
+      displayUserEmail.value = googleUser.email;
       isSignIn = true;
       authBox.write("auth", isSignIn);
+
+      //~~~~~~~~~~~~~~Save Credenctials of google auths in firestore~~~~~~~~~~~~~~
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken,
+      );
+      await auth.signInWithCredential(credential);
+      //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       update();
       Get.offNamed(AppRoutes.MAINSCREEN);
@@ -122,8 +148,8 @@ class LoginController extends GetxController {
 
     if (facebookLoginResult.status == LoginStatus.success) {
       facebookModel = FacebookModel.fromJson(await facebookAuth.getUserData());
-      displayedUserName = facebookModel.name!;
-      displayedUserPhoto = facebookModel.picture!.data!.url!;
+      displayedUserName.value = facebookModel.name!;
+      displayedUserPhoto.value = facebookModel.picture!.data!.url!;
       isSignIn = true;
       authBox.write("auth", isSignIn);
 
@@ -181,8 +207,9 @@ class LoginController extends GetxController {
       await auth.signOut();
       await googleAuth.signOut();
       await facebookAuth.logOut();
-      displayedUserName = '';
-      displayedUserPhoto = '';
+      displayedUserName.value = '';
+      displayedUserPhoto.value = '';
+      displayUserEmail.value = '';
       isSignIn = false;
       authBox.write("auth", isSignIn);
       await storage.remove('isFavoritesList');

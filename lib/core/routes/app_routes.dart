@@ -21,4 +21,5 @@ class AppRoutes {
   static const SETTINGSSCREEN = "/settings";
   static const CARTSCREEN = "/cart";
   static const PRODUCTDETAILSSCREEN = "/product_details";
+  static const PAYMENTSCREEN = "/payment";
 }

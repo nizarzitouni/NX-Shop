@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nx_shop/core/my_colors.dart';
+import 'package:nx_shop/core/routes/app_routes.dart';
 import 'package:nx_shop/view/global_widgets/my_text.dart';
 
 import '../../../../controllers/main/cart_controller.dart';
@@ -53,7 +54,7 @@ class CartTotal extends StatelessWidget {
                         Get.isDarkMode ? MyColors.myPink : MyColors.myYellow,
                   ),
                   onPressed: () {
-                    // Get.toNamed(Routes.paymentScreen);
+                    Get.toNamed(AppRoutes.PAYMENTSCREEN);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

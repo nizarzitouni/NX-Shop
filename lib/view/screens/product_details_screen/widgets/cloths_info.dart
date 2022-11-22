@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import 'package:nx_shop/controllers/main/products_controller.dart';
+import 'package:nx_shop/controllers/main/product_controller.dart';
 import 'package:nx_shop/view/global_widgets/my_text.dart';
 import 'package:readmore/readmore.dart';
 
@@ -20,7 +20,7 @@ class ClothesInfo extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final productController = Get.find<ProductsController>();
+  final productController = Get.find<ProductController>();
 
   @override
   Widget build(BuildContext context) {

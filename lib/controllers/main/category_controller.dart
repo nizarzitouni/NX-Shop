@@ -50,26 +50,4 @@ class CategoryController extends GetxController {
       isAllCategoryLoading(false);
     }
   }
-
-  // void getCategoryIndex(int index) async {
-  //   var productsByCategoryList = await getAllCategories(categoriesNameList[index]);
-  //   if (productsByCategoryList.isNotEmpty) {
-  //     productsListByCategory.value = productsByCategoryList;
-  //   }
-  // }
-  // //Getting the products from the api----------------------------------------
-  // getAllCategories(String categoryName) async {
-  //   isAllCategoryLoading(true); //When its done it become false
-  //   // ignore: unused_local_variable
-  //   var productsByCategoryList =
-  //       await CategoryService.getProductsByCategory(categoryName);
-  //   isAllCategoryLoading(false);
-  // }
-
-  // void getCategoryIndex(int index) async {
-  //   var productsByCategoryList = await getAllCategories(categoriesNameList[index]);
-  //   if (productsByCategoryList.isNotEmpty) {
-  //     productsListByCategory.value = productsByCategoryList;
-  //   }
-  // }
 }

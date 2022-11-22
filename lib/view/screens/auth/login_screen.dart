@@ -196,7 +196,7 @@ class LoginScreen extends StatelessWidget {
                                       loginController.googleSignUp();
                                     },
                                     child:
-                                        Image.asset('assets/icons/google.png'));
+                                        Image.asset('assets/image/google.png'));
                               },
                             ),
                             const SizedBox(width: 10.0),

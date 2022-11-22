@@ -4,7 +4,7 @@ import 'package:nx_shop/view/global_widgets/my_text.dart';
 
 import '../../../../controllers/main/cart_controller.dart';
 import '../../../../controllers/main/category_controller.dart';
-import '../../../../controllers/main/products_controller.dart';
+import '../../../../controllers/main/product_controller.dart';
 import '../../../../core/my_colors.dart';
 import '../../../../data/models/product_model.dart';
 import '../../product_details_screen/product_details_screen.dart';
@@ -16,7 +16,7 @@ class CategoryItems extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final productsController = Get.find<ProductsController>();
+  final productsController = Get.find<ProductController>();
 
   final cartController = Get.find<CartController>();
 

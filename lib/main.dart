@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:nx_shop/core/my_strings.dart';
+import 'package:nx_shop/core/translation/localization_app.dart';
 import 'data/services/dependency_injection.dart';
-import 'data/services/translations_service.dart';
 import 'core/routes/app_pages.dart';
 import 'core/routes/app_routes.dart';
 import 'core/themes.dart';
@@ -26,9 +27,9 @@ class MyApp extends StatelessWidget {
       darkTheme: Themes().darkTheme,
       themeMode: ThemeController().themeDataGet,
       //ThemeService.instance.themeMode,
-      translations: Translation(),
-      locale: const Locale('en'),
-      fallbackLocale: const Locale('en'),
+      translations: LocaliztionApp(),
+      locale: Locale(GetStorage().read<String>('Lang').toString()),
+      fallbackLocale: Locale(ene),
       initialRoute: FirebaseAuth.instance.currentUser != null ||
               GetStorage().read<bool>("auth") == true
           ? AppRoutes.MAINSCREEN

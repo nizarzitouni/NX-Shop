@@ -6,4 +6,10 @@ class AppInformation {
   static const masterAdminEmail = "";
   static const googleMapsKey = '';
   static const googleMapsKeyURL = '';
+
+  //~~~~~~~~~~~~~~Shop Owner Infos~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  static const storeTitile = 'NX Shop';
+  static const storeName = 'nx-shop';
+  static const storePhone = '+213 999999999';
+  static const storeAdresse = 'Algeria,Constantine el khroub';
 }

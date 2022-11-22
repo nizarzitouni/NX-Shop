@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nx_shop/controllers/main/products_controller.dart';
+import 'package:nx_shop/controllers/main/product_controller.dart';
 import 'package:nx_shop/core/my_colors.dart';
 //import 'package:udemy_shop_app/logic/controllers/product_controller.dart';
 
 class SearchFormText extends StatelessWidget {
   SearchFormText({Key? key}) : super(key: key);
 
-  final productController = Get.find<ProductsController>();
+  final productController = Get.find<ProductController>();
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ProductsController>(
+    return GetBuilder<ProductController>(
       builder: (_) {
         return TextFormField(
           //TODO fix the color

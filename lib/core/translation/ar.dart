@@ -1,3 +1,7 @@
 const Map<String, String> ar = {
-  'homeTitle': 'Nx_shop',
+  "GENERAL": "عام",
+  "Dark Mode": "الوضع الداكن",
+  "Language": "لغة",
+  "Logout": "تسجيل خروج",
+  "Home": "",
 };

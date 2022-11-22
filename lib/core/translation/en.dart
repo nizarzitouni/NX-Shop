@@ -1,3 +1,6 @@
 const Map<String, String> en = {
-  'homeTitle': 'Nx_shop',
+  "GENERAL": "GENERAL",
+  "Dark Mode": "Dark Mode",
+  "Language": "Language",
+  "Logout": "Logout",
 };

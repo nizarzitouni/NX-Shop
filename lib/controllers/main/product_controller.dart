@@ -4,7 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:nx_shop/data/models/product_model.dart';
 import 'package:nx_shop/data/services/product_services.dart';
 
-class ProductsController extends GetxController {
+class ProductController extends GetxController {
   //
   var productsList = <ProductModel>[].obs;
   var isLoading = true.obs;

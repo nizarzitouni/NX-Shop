@@ -18,7 +18,6 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   flutter_rating_bar: ^4.0.1
   readmore: ^2.2.0
- 
 #Managment
   get:
   get_storage:
@@ -30,7 +29,9 @@ dependencies:
   flutter_screenutil:
   flutter_facebook_auth: ^4.4.1+1
   http: ^0.13.5
-    #Firebase
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
+#Firebase
   firebase_auth:
   firebase_messaging:
   firebase_core:

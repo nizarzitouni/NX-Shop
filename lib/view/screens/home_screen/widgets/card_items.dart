@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nx_shop/controllers/main/cart_controller.dart';
-import 'package:nx_shop/controllers/main/products_controller.dart';
+import 'package:nx_shop/controllers/main/product_controller.dart';
 import 'package:nx_shop/core/my_colors.dart';
 import 'package:nx_shop/view/global_widgets/my_text.dart';
 import 'package:nx_shop/view/screens/product_details_screen/product_details_screen.dart';
@@ -11,7 +11,7 @@ import '../../../../data/models/product_model.dart';
 class CardItems extends StatelessWidget {
   CardItems({Key? key}) : super(key: key);
 
-  final productsController = Get.find<ProductsController>();
+  final productsController = Get.find<ProductController>();
   final cartController = Get.find<CartController>();
 
   @override
