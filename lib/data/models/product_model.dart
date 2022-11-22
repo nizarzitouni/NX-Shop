@@ -2,11 +2,16 @@
 
 import 'dart:convert';
 
-List<ProductModel> productModelFromJson(String str) => List<ProductModel>.from(
-    json.decode(str).map((x) => ProductModel.fromJson(x)));
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-String productModelToJson(List<ProductModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+List<ProductModel> productModelFromJson(String str) {
+  return List<ProductModel>.from(
+      json.decode(str).map((x) => ProductModel.fromJson(x)));
+}
+
+String productModelToJson(List<ProductModel> data) {
+  return json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+}
 
 class ProductModel {
   final int id;
@@ -26,34 +31,39 @@ class ProductModel {
     required this.rating,
   });
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'title': title,
-      'price': price,
-      'description': description,
-      'category': category,
-      'image': image,
-      'rating': rating.toMap(),
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "price": price,
+        "description": description,
+        "category": category,
+        "image": image,
+        "rating": rating.toJson(),
+      };
 
-  factory ProductModel.fromJson(Map<String, dynamic> map) {
-    return ProductModel(
-      id: map['id'] as int,
-      title: map['title'] as String,
-      price: map['price'] as num,
-      description: map['description'] as String,
-      category: map['category'] != null ? map['category'] as String : null,
-      image: map['image'] as String,
-      rating: Rating.fromMap(map['rating'] as Map<String, dynamic>),
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
+        id: json["id"],
+        title: json["title"],
+        price: json["price"].toDouble(),
+        description: json["description"],
+        category: json["category"],
+        image: json["image"],
+        rating: Rating.fromJson(json["rating"]),
+      );
+
+  static ProductModel fromSnapshot(DocumentSnapshot snap) {
+    ProductModel product = ProductModel(
+      id: snap['id'],
+      title: snap['title'],
+      price: snap['price'],
+      description: snap['description'],
+      category: snap['category'],
+      image: snap['image'],
+      rating: snap['rating'],
     );
+
+    return product;
   }
-
-  // String toJson() => json.encode(toMap());
-
-  // factory ProductModel.fromJson(String source) =>
-  //     ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 class Rating {
@@ -64,24 +74,15 @@ class Rating {
     required this.count,
   });
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'rate': rate,
-      'count': count,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        "rate": rate,
+        "count": count,
+      };
 
-  factory Rating.fromMap(Map<String, dynamic> map) {
-    return Rating(
-      rate: map['rate'] as num,
-      count: map['count'] as int,
-    );
-  }
-
-  // String toJson() => json.encode(toMap());
-
-  // factory Rating.fromJson(String source) => Rating.fromMap(json.decode(source) as Map<String, dynamic>);
-
+  factory Rating.fromJson(Map<String, dynamic> json) => Rating(
+        rate: json["rate"].toDouble(),
+        count: json["count"],
+      );
   @override
   String toString() => 'Rating(rate: $rate, count: $count)';
 }

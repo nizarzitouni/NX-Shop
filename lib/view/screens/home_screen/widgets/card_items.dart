@@ -30,48 +30,58 @@ class CardItems extends StatelessWidget {
               ? Get.isDarkMode
                   ? Image.asset('assets/image/search_empty_dark.png')
                   : Image.asset('assets/image/search_empty_light.png')
-              : GridView.builder(
-                  itemCount: productsController.searchList.isEmpty
-                      ? productsController.productsList.length
-                      : productsController.searchList.length,
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    childAspectRatio: 0.8,
-                    mainAxisSpacing: 9.0,
-                    crossAxisSpacing: 6.0,
-                    maxCrossAxisExtent: 200,
-                  ),
-                  itemBuilder: (context, index) {
-                    if (productsController.searchList.isEmpty) {
-                      return buildCardItems(
-                          image: productsController.productsList[index].image,
-                          price: productsController.productsList[index].price,
-                          rate: productsController
-                              .productsList[index].rating.rate,
-                          productId: productsController.productsList[index].id,
-                          productModel: productsController.productsList[index],
-                          onTap: () {
-                            Get.to(() => ProductDetailsScreen(
-                                  productModel:
-                                      productsController.productsList[index],
-                                ));
-                          });
-                    } else {
-                      return buildCardItems(
-                          image: productsController.searchList[index].image,
-                          price: productsController.searchList[index].price,
-                          rate:
-                              productsController.searchList[index].rating.rate,
-                          productId: productsController.searchList[index].id,
-                          productModel: productsController.searchList[index],
-                          onTap: () {
-                            Get.to(() => ProductDetailsScreen(
-                                  productModel:
-                                      productsController.searchList[index],
-                                ));
-                          });
-                    }
-                  },
-                ),
+              : productsController.isLoading.isFalse &&
+                      productsController.productsList.isEmpty
+                  ? NoDataWidget()
+                  : GridView.builder(
+                      itemCount: productsController.searchList.isEmpty
+                          ? productsController.productsList.length
+                          : productsController.searchList.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                        childAspectRatio: 0.8,
+                        mainAxisSpacing: 9.0,
+                        crossAxisSpacing: 6.0,
+                        maxCrossAxisExtent: 200,
+                      ),
+                      itemBuilder: (context, index) {
+                        if (productsController.searchList.isEmpty) {
+                          return buildCardItems(
+                              image:
+                                  productsController.productsList[index].image,
+                              price:
+                                  productsController.productsList[index].price,
+                              rate: productsController
+                                  .productsList[index].rating.rate,
+                              productId:
+                                  productsController.productsList[index].id,
+                              productModel:
+                                  productsController.productsList[index],
+                              onTap: () {
+                                Get.to(() => ProductDetailsScreen(
+                                      productModel: productsController
+                                          .productsList[index],
+                                    ));
+                              });
+                        } else {
+                          return buildCardItems(
+                              image: productsController.searchList[index].image,
+                              price: productsController.searchList[index].price,
+                              rate: productsController
+                                  .searchList[index].rating.rate,
+                              productId:
+                                  productsController.searchList[index].id,
+                              productModel:
+                                  productsController.searchList[index],
+                              onTap: () {
+                                Get.to(() => ProductDetailsScreen(
+                                      productModel:
+                                          productsController.searchList[index],
+                                    ));
+                              });
+                        }
+                      },
+                    ),
         );
       }
     });
@@ -209,6 +219,43 @@ class CardItems extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget NoDataWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          //
+          Image.asset(
+            'assets/image/no_data.png',
+            height: 250,
+          ),
+          const SizedBox(height: 20.0),
+          Text(
+            'NO PRODUCTS',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w500,
+              color: MyColors.myBblack,
+            ),
+          ),
+          const SizedBox(height: 15.0),
+          Text(
+            'Try Adding SomeProducts From Your Admin Pannel !!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.w500,
+              color: MyColors.myBblack,
+            ),
+          ),
+        ],
       ),
     );
   }

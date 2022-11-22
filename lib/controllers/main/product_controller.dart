@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nx_shop/data/models/product_model.dart';
@@ -19,7 +21,6 @@ class ProductController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
     //Getting the local favourites list if there is any
     List? storedFavList = storage.read<List>('isFavoritesList');
     if (storedFavList != null) {
@@ -27,10 +28,23 @@ class ProductController extends GetxController {
           storedFavList.map((e) => ProductModel.fromJson(e)).toList().obs;
     }
     //Getting product from api
-    getProducts();
+    //getProducts();
+    super.onInit();
   }
 
-  //Getting the products from the api----------------------------------------
+  @override
+  void onReady() {
+    //~~~~~~~~~~~~~~Get data from firebase~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    try {
+      isLoading(true);
+      productsList.bindStream(ProductService.productStream());
+    } finally {
+      isLoading(false);
+    }
+    super.onReady();
+  }
+
+  //Getting the products from fake api----------------------------------------
   void getProducts() async {
     List<ProductModel> products = await ProductService.getProducts();
     try {
