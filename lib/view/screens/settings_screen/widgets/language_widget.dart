@@ -95,7 +95,7 @@ class LanguageWidget extends StatelessWidget {
                     value: frf,
                   ),
                 ],
-                value: settingController.langLocale,
+                value: settingController.langLocale ?? ene,
                 onChanged: (value) {
                   settingController.changeLanguage(value!);
                   Get.updateLocale(Locale(value));

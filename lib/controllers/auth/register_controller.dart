@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:nx_shop/core/constants.dart';
 import 'package:nx_shop/core/my_colors.dart';
 import 'package:nx_shop/core/routes/app_routes.dart';
 
@@ -14,6 +16,7 @@ class RegisterController extends GetxController {
   bool isCheckBox = false;
   //
   FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore fireInst = FirebaseFirestore.instance;
   String displayedUserName = '';
 
   //Password visibility
@@ -40,9 +43,13 @@ class RegisterController extends GetxController {
         email: email,
         password: password,
       )
-          .then((value) {
+          .then((value) async {
         displayedUserName = name;
         auth.currentUser!.updateDisplayName(displayedUserName);
+        await saveUserCradentialsToFirestore(
+            name: name,
+            email: email,
+            authType: AuthenticationType.emailAndPasswordAuth.toString());
       });
 
       update();
@@ -86,8 +93,32 @@ class RegisterController extends GetxController {
     }
   }
 
-  //
-  void signOut() async {
-    //
+  //Saving user info to firestore DB---------------------------
+  saveUserCradentialsToFirestore(
+      {required String name,
+      required String email,
+      required String authType}) async {
+    final lastTimeAuth = DateTime.now().millisecondsSinceEpoch;
+    //get the user with the same email
+    var querySnapshots = await fireInst
+        .collection('authenticated_users_credentials')
+        .where('email', isEqualTo: email)
+        .get();
+    if (querySnapshots.docs.isNotEmpty) {
+      String userDocId = querySnapshots.docs[0].id;
+      await fireInst
+          .collection('authenticated_users_credentials')
+          .doc(userDocId)
+          .update({
+        "last_time_auth": lastTimeAuth,
+      });
+    } else {
+      await fireInst.collection('authenticated_users_credentials').add({
+        "username": name,
+        "email": email,
+        "auth_type": authType,
+        "last_time_auth": lastTimeAuth,
+      });
+    }
   }
 }

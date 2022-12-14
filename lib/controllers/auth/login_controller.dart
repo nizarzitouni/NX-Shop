@@ -1,11 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:nx_shop/core/my_strings.dart';
 import 'package:nx_shop/data/models/facebook_model.dart';
 import 'package:nx_shop/core/routes/app_routes.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nx_shop/data/services/user_helper.dart';
+import '../../core/constants.dart';
 import '../../core/my_colors.dart';
 
 class LoginController extends GetxController {
@@ -15,11 +19,13 @@ class LoginController extends GetxController {
   //
   bool passwordIsVisible = false;
   //
-  FirebaseAuth auth = FirebaseAuth.instance;
   var displayedUserName = ''.obs;
   var displayedUserPhoto = ''.obs;
   var displayUserEmail = ''.obs;
   //
+  var auth = FirebaseAuth.instance;
+  var fireInst = FirebaseFirestore.instance;
+
   var googleAuth = GoogleSignIn();
   var facebookAuth = FacebookAuth.instance;
   FacebookModel facebookModel = FacebookModel();
@@ -28,11 +34,12 @@ class LoginController extends GetxController {
   final GetStorage authBox = GetStorage();
   //
   var storage = GetStorage();
-  //~~~~~~~~~~~~~~Get the user credentialsfrom firestore~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  //~~~~~~~~~~~~~~Get the user credentials from firestore~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   User? get userProfile => auth.currentUser;
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    await storage.write('Lang', ene);
     //googleSignUp();
     //Or
     displayedUserName.value =
@@ -58,10 +65,14 @@ class LoginController extends GetxController {
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
         displayedUserName.value = auth.currentUser!.displayName!;
+        displayUserEmail.value = auth.currentUser!.email!;
       });
       isSignIn = true;
       authBox.write("auth", isSignIn);
       update();
+      //
+      //UserHelper.saveUser(auth.currentUser!);
+      //
       Get.offNamed(AppRoutes.MAINSCREEN);
     } on FirebaseAuthException catch (error) {
       String titile = error.code.replaceAll(RegExp('-'), ' ').capitalize!;
@@ -111,6 +122,7 @@ class LoginController extends GetxController {
       displayUserEmail.value = googleUser.email;
       isSignIn = true;
       authBox.write("auth", isSignIn);
+      // UserHelper.saveUser(googleUser);
 
       //~~~~~~~~~~~~~~Save Credenctials of google auths in firestore~~~~~~~~~~~~~~
       GoogleSignInAuthentication googleSignInAuthentication =
@@ -120,6 +132,11 @@ class LoginController extends GetxController {
         accessToken: googleSignInAuthentication.accessToken,
       );
       await auth.signInWithCredential(credential);
+
+      await saveUserCradentialsToFirestore(
+          name: googleUser.displayName!,
+          email: googleUser.email,
+          authType: AuthenticationType.googleAuth.toString());
       //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       update();
@@ -152,6 +169,11 @@ class LoginController extends GetxController {
       displayedUserPhoto.value = facebookModel.picture!.data!.url!;
       isSignIn = true;
       authBox.write("auth", isSignIn);
+
+      await saveUserCradentialsToFirestore(
+          name: facebookModel.name!,
+          email: facebookModel.email!,
+          authType: AuthenticationType.FacebookAuth.toString());
 
       update();
       Get.offNamed(AppRoutes.MAINSCREEN);
@@ -229,6 +251,35 @@ class LoginController extends GetxController {
         reverseAnimationCurve: Curves.easeOut,
         duration: const Duration(seconds: 2),
       );
+    }
+  }
+
+  //Saving user info to firestore DB---------------------------
+  saveUserCradentialsToFirestore(
+      {required String name,
+      required String email,
+      required String authType}) async {
+    final lastTimeAuth = DateTime.now().millisecondsSinceEpoch;
+    //get the user with the same email
+    var querySnapshots = await fireInst
+        .collection('authenticated_users_credentials')
+        .where('email', isEqualTo: email)
+        .get();
+    if (querySnapshots.docs.isNotEmpty) {
+      String userDocId = querySnapshots.docs[0].id;
+      await fireInst
+          .collection('authenticated_users_credentials')
+          .doc(userDocId)
+          .update({
+        "last_time_auth": lastTimeAuth,
+      });
+    } else {
+      await fireInst.collection('authenticated_users_credentials').add({
+        "username": name,
+        "email": email,
+        "auth_type": authType,
+        "last_time_auth": lastTimeAuth,
+      });
     }
   }
 }

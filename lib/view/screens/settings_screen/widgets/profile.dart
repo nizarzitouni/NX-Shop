@@ -25,9 +25,11 @@ class ProfileWidget extends StatelessWidget {
                   color: Colors.white,
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: NetworkImage(
-                      loginController.displayedUserPhoto.value,
-                    ),
+                    image: loginController.displayedUserPhoto.value == ''
+                        ? NetworkImage(
+                            loginController.displayedUserPhoto.value,
+                          )
+                        : Image.asset('assets/image/profile_icon.jpg').image,
                     fit: BoxFit.cover,
                   ),
                 ),

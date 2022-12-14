@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:nx_shop/core/my_colors.dart';
-
 class MyText extends StatelessWidget {
   final String text;
   final double fontSize;

@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.google.gms.google-services' //flutter
+apply plugin: 'com.google.gms.google-services' //firebase
 
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -71,6 +71,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-	implementation 'com.facebook.android:facebook-android-sdk:latest.release'
-	implementation platform('com.google.firebase:firebase-bom:31.0.1')
+	implementation 'com.facebook.android:facebook-android-sdk:latest.release'  //Facebook
+	implementation platform('com.google.firebase:firebase-bom:31.0.1')			//Firebase
 }

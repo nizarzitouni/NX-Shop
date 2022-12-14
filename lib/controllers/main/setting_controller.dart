@@ -7,7 +7,7 @@ class SettingController extends GetxController {
   var swithchValue = false.obs;
 
   var storage = GetStorage();
-  late var langLocale;
+  var langLocale;
 
   @override
   void onInit() async {
@@ -26,7 +26,7 @@ class SettingController extends GetxController {
   }
 
   Future<String> get getLanguage async {
-    return await storage.read('Lang') ?? ene;
+    return await storage.read('Lang');
   }
 
   void changeLanguage(String typeLang) {
@@ -34,7 +34,6 @@ class SettingController extends GetxController {
     if (langLocale == typeLang) {
       return;
     }
-
     if (typeLang == fr) {
       langLocale = frf;
       saveLanguage(frf);

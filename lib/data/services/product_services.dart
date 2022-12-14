@@ -33,8 +33,6 @@ class ProductService {
             ProductModel.fromJson(product.data() as Map<String, dynamic>),
           );
         }
-        debugPrint(
-            '------------------ffffffffff----$products ----------------------');
         return products;
       });
     } catch (e) {
