@@ -50,12 +50,14 @@ class CategoryItems extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return buildCardItems(
-                  image: categoryController.productsListByCategory[index].image,
-                  price: categoryController.productsListByCategory[index].price,
+                  image: categoryController
+                      .productsListByCategory[index].images[0],
+                  price: categoryController
+                      .productsListByCategory[index].productPrice,
                   rate: categoryController
-                      .productsListByCategory[index].rating.rate,
-                  productId:
-                      categoryController.productsListByCategory[index].id,
+                      .productsListByCategory[index].productRating.rate,
+                  productId: categoryController
+                      .productsListByCategory[index].productId,
                   productModels:
                       categoryController.productsListByCategory[index],
                   onTap: () {

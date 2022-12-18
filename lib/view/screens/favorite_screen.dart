@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:nx_shop/controllers/main/product_controller.dart';
 import 'package:nx_shop/core/my_colors.dart';
 
+import '../../core/size_config.dart';
+import '../../core/utility.dart';
+
 class FavoritesScreen extends StatelessWidget {
   FavoritesScreen({Key? key}) : super(key: key);
   final productsController = Get.find<ProductController>();
@@ -43,10 +46,14 @@ class FavoritesScreen extends StatelessWidget {
                 : ListView.separated(
                     itemBuilder: (context, index) {
                       return buildFavItems(
-                        image: productsController.favouritesList[index].image,
-                        price: productsController.favouritesList[index].price,
-                        titile: productsController.favouritesList[index].title,
-                        productId: productsController.favouritesList[index].id,
+                        image:
+                            productsController.favouritesList[index].images[0],
+                        price: productsController
+                            .favouritesList[index].productPrice,
+                        titile: productsController
+                            .favouritesList[index].productName,
+                        productId:
+                            productsController.favouritesList[index].productId,
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -83,10 +90,15 @@ class FavoritesScreen extends StatelessWidget {
                 ),
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: Image.network(
-                    image,
-                    fit: BoxFit.cover,
+                  child: Utility.imageFromBase64String(
+                    base64String: image,
+                    imageHeight: SizeConfig.screenHeight * .1,
+                    imageWidth: SizeConfig.screenWidth * .4,
                   ),
+                  //  Image.network(
+                  //   image,
+                  //   fit: BoxFit.cover,
+                  // ),
                 ),
               ),
             ),

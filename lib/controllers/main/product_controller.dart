@@ -60,13 +60,13 @@ class ProductController extends GetxController {
   //Favorites logic----------------------------------------------------------
   void manageFavourites(productId) async {
     var removeAtIndex =
-        favouritesList.indexWhere((product) => product.id == productId);
+        favouritesList.indexWhere((product) => product.productId == productId);
     if (removeAtIndex >= 0) {
       favouritesList.removeAt(removeAtIndex);
       await storage.remove('isFavoritesList');
     } else {
-      favouritesList
-          .add(productsList.firstWhere((product) => product.id == productId));
+      favouritesList.add(
+          productsList.firstWhere((product) => product.productId == productId));
       //
       await storage.write('isFavoritesList', favouritesList);
     }
@@ -74,17 +74,19 @@ class ProductController extends GetxController {
 
   bool isFavourites(productId) {
     //isFavourites.value == !isFavourites.value;
-    return favouritesList.any((product) => product.id == productId);
+    return favouritesList.any((product) => product.productId == productId);
   }
   //--------------------------------------------------------------------------
 
   //~~~~~~~~~~~~~~SearchBar Logic~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   void addSearchToList(String searchName) {
     searchList.value = productsList.where((search) {
-      return search.title
+      return search.productName
               .toLowerCase()
               .contains(searchName.toLowerCase()) || //filter by name
-          search.price.toString().contains(searchName); //filter by preice
+          search.productPrice
+              .toString()
+              .contains(searchName); //filter by preice
     }).toList();
     update();
   }

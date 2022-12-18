@@ -8,14 +8,17 @@ import 'package:nx_shop/view/screens/product_details_screen/widgets/color_picker
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../controllers/main/cart_controller.dart';
+import '../../../../core/size_config.dart';
+import '../../../../core/utility.dart';
 
 class ImageSliders extends StatefulWidget {
-  final String imageUrl;
-  const ImageSliders({
-    required this.imageUrl,
+  ImageSliders({
+    // required this.imageUrl,
     Key? key,
+    required this.imageList,
   }) : super(key: key);
 
+  final List<String> imageList;
   @override
   _ImageSlidersState createState() => _ImageSlidersState();
 }
@@ -39,11 +42,12 @@ class _ImageSlidersState extends State<ImageSliders> {
   int currentColor = 0;
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Stack(
       children: [
         //###########Image list
         CarouselSlider.builder(
-          itemCount: 3,
+          itemCount: widget.imageList.length,
           carouselController: carouselController,
           options: CarouselOptions(
               height: 500,
@@ -61,11 +65,16 @@ class _ImageSlidersState extends State<ImageSliders> {
             return Container(
               margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(widget.imageUrl),
-                  fit: BoxFit.fill,
-                ),
+                // image: DecorationImage(
+                //   image: NetworkImage(widget.imageList[index]),
+                //   fit: BoxFit.fill,
+                // ),
                 borderRadius: BorderRadius.circular(25),
+              ),
+              child: Utility.imageFromBase64String(
+                base64String: widget.imageList[index],
+                imageHeight: SizeConfig.screenHeight * .6,
+                imageWidth: SizeConfig.screenWidth,
               ),
             );
           },
@@ -76,7 +85,7 @@ class _ImageSlidersState extends State<ImageSliders> {
           left: 180,
           child: AnimatedSmoothIndicator(
             activeIndex: currentPage,
-            count: 3,
+            count: widget.imageList.length,
             effect: ExpandingDotsEffect(
               dotHeight: 10,
               dotWidth: 10,

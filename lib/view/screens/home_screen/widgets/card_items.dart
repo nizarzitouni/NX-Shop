@@ -6,6 +6,8 @@ import 'package:nx_shop/core/my_colors.dart';
 import 'package:nx_shop/view/global_widgets/my_text.dart';
 import 'package:nx_shop/view/screens/product_details_screen/product_details_screen.dart';
 
+import '../../../../core/size_config.dart';
+import '../../../../core/utility.dart';
 import '../../../../data/models/product_model.dart';
 
 class CardItems extends StatelessWidget {
@@ -47,14 +49,14 @@ class CardItems extends StatelessWidget {
                       itemBuilder: (context, index) {
                         if (productsController.searchList.isEmpty) {
                           return buildCardItems(
-                              image:
-                                  productsController.productsList[index].image,
-                              price:
-                                  productsController.productsList[index].price,
+                              image: productsController
+                                  .productsList[index].images[0],
+                              price: productsController
+                                  .productsList[index].productPrice,
                               rate: productsController
-                                  .productsList[index].rating.rate,
-                              productId:
-                                  productsController.productsList[index].id,
+                                  .productsList[index].productRating.rate,
+                              productId: productsController
+                                  .productsList[index].productId,
                               productModel:
                                   productsController.productsList[index],
                               onTap: () {
@@ -65,12 +67,14 @@ class CardItems extends StatelessWidget {
                               });
                         } else {
                           return buildCardItems(
-                              image: productsController.searchList[index].image,
-                              price: productsController.searchList[index].price,
+                              image: productsController
+                                  .searchList[index].images[0],
+                              price: productsController
+                                  .searchList[index].productPrice,
                               rate: productsController
-                                  .searchList[index].rating.rate,
-                              productId:
-                                  productsController.searchList[index].id,
+                                  .searchList[index].productRating.rate,
+                              productId: productsController
+                                  .searchList[index].productId,
                               productModel:
                                   productsController.searchList[index],
                               onTap: () {
@@ -162,10 +166,16 @@ class CardItems extends StatelessWidget {
                   color: MyColors.myWhite,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Image.network(
-                  image,
-                  fit: BoxFit.fitHeight,
+                child: Utility.imageFromBase64String(
+                  base64String: image,
+                  imageHeight: SizeConfig.screenHeight * .1,
+                  imageWidth: SizeConfig.screenWidth * .4,
                 ),
+
+                //  Image.network(
+                //   image,
+                //   fit: BoxFit.fitHeight,
+                // ),
               ),
               //==============================================================
               //Price and Rating  Row

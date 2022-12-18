@@ -30,7 +30,7 @@ class ProductService {
           .map((QuerySnapshot query) {
         for (var product in query.docs) {
           products.add(
-            ProductModel.fromJson(product.data() as Map<String, dynamic>),
+            ProductModel.fromMap(product.data() as Map<String, dynamic>),
           );
         }
         return products;

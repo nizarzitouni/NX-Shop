@@ -10,9 +10,6 @@ class CategoryService {
     final response = await http.get(Uri.parse('$baseUrl/products/categories'));
 
     if (response.statusCode == 200) {
-      // String allCategories as json= response.body;
-      // debugPrint(
-      //     '----------------------getCategories() response.statusCode == 200 ----------------------');
       return compute(categoryModelFromJson, response.body);
     } else {
       return throw Exception('----------Fail To Load Categories-----------');
@@ -22,8 +19,6 @@ class CategoryService {
   static Future<List<ProductModel>> getProductsByCategory(String cat) async {
     final response =
         await http.get(Uri.parse('$baseUrl/products/category/$cat'));
-    // debugPrint(
-    //     '----------------------response response $response ----------------------');
     if (response.statusCode == 200) {
       return compute(productModelFromJson, response.body);
       // return parseProducts(response.body);

@@ -41,7 +41,7 @@ class CartProductCard extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
               image: DecorationImage(
-                image: NetworkImage(productModels.image),
+                image: NetworkImage(productModels.images[0]),
                 fit: BoxFit.cover,
               ),
             ),
@@ -56,7 +56,7 @@ class CartProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  productModels.title,
+                  productModels.productName,
                   style: TextStyle(
                     overflow: TextOverflow.ellipsis,
                     color: Get.isDarkMode ? Colors.white : Colors.black,

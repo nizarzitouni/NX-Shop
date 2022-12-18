@@ -20,17 +20,17 @@ class ProductDetailsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ImageSliders(
-                imageUrl: productModel.image,
+                imageList: productModel.images,
               ),
               ClothesInfo(
-                title: productModel.title,
-                productId: productModel.id,
-                rate: productModel.rating.rate,
+                title: productModel.productName,
+                productId: productModel.productId,
+                rate: productModel.productRating.rate,
                 description: productModel.description,
               ),
               const SizeList(),
               AddCart(
-                price: productModel.price,
+                price: productModel.productPrice,
                 productModel: productModel,
               ),
             ],

@@ -5,11 +5,15 @@ import 'package:nx_shop/view/global_widgets/my_text.dart';
 import 'package:nx_shop/view/screens/home_screen/widgets/card_items.dart';
 import 'package:nx_shop/view/screens/home_screen/widgets/search_form_text.dart';
 
+import '../../../core/size_config.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: context.theme.backgroundColor,
@@ -17,7 +21,7 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //Text
+            //Text FindYour INSPERATION
             Container(
               width: double.infinity,
               height: 180,
@@ -58,9 +62,8 @@ class HomeScreen extends StatelessWidget {
             //
             //
             //Products
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
+            //Categories Text
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Align(
